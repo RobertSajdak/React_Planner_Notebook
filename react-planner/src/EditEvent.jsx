@@ -10,7 +10,9 @@ const EditEvent = props => {
                     type="text"
                     id="name"
                     name="name"
-                    onChange={(e) => console.log(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                        props.onInputChange({[e.target.name]: e.target.value})
+                    }
                 />
             </div>
             <div className="edit-event__input-group">
@@ -19,7 +21,9 @@ const EditEvent = props => {
                     type="tel"
                     id="hour"
                     name="hour"
-                    onChange={(e) => console.log(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                        props.onInputChange({[e.target.name]: e.target.value})
+                    }
                 />
             </div>
             <div className="edit-event__input-group">
@@ -28,7 +32,9 @@ const EditEvent = props => {
                     type="tel"
                     id="minute"
                     name="minute"
-                    onChange={(e) => console.log(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                        props.onInputChange({[e.target.name]: e.target.value})
+                    }
                 />
             </div>
             <button onClick={() => props.onSave()}>OK</button>

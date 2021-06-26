@@ -29,7 +29,13 @@ class App extends Component { // Wywołanie komponentu stanu.
                 {id: 2, name: "śniadanie", time: "07:30"}
             ]
         };
+    this.handleEditEvent = this.handleEditEvent.bind(this);
     }
+
+    handleEditEvent(val) { // Funkcja do edycji wydarzenia.
+        console.log(val);
+    }
+
     render() { // Generowanie komponentu na podstawie stanu.
         const events = this.state.events.map(el => {
             return <Countdown key={el.id} name={el.name} time={el.time}/>
@@ -37,7 +43,10 @@ class App extends Component { // Wywołanie komponentu stanu.
         return (
             <div className="app">
                 {events}
-                <EditEvent onSave={() => alert("A")} />
+                <EditEvent
+                    onInputChange={val => this.handleEditEvent(val)}
+                    onSave={() => alert("A")}
+                />
             </div>
         );
     }
