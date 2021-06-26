@@ -37,6 +37,7 @@ class App extends Component { // Wywołanie komponentu stanu.
         };
 
         this.handleEditEvent = this.handleEditEvent.bind(this);
+        this.handleSaveEvent = this.handleSaveEvent.bind(this);
     }
 
     handleEditEvent(val) { // Funkcja do edycji wydarzenia.
@@ -46,6 +47,12 @@ class App extends Component { // Wywołanie komponentu stanu.
                 editedEvent: Object.assign(prevState.editedEvent, val)
             };
         });
+    }
+
+    handleSaveEvent() { // Funkcja do dodawania (zapisywania) wydarzenia do listy.
+        this.setState(prevState => ({
+            events: [...prevState.events, prevState.editedEvent]
+        }))
     }
 
     render() { // Generowanie komponentu na podstawie stanu.
@@ -64,7 +71,7 @@ class App extends Component { // Wywołanie komponentu stanu.
                 {events}
                 <EditEvent
                     onInputChange={val => this.handleEditEvent(val)}
-                    onSave={() => alert("A")}
+                    onSave={() => this.handleSaveEvent()}
                 />
             </div>
         );
