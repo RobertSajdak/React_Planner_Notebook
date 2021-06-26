@@ -1,8 +1,8 @@
 import React from "react";
 
-const Countdown = () => (
+const Countdown = props => (
     <div className="countdown">
-        <strong>pobudka</strong> - 06:00
+        <strong>{props.name}</strong> - {props.time}
     </div>
 );
 
