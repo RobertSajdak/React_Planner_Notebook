@@ -1,7 +1,7 @@
 import React from "react";
 
 // Dodanie komponentów edycji wydarzenia:
-const EditEvent = () => {
+const EditEvent = props => {
     return (
         <div className="edit-event">
             <div className="edit-event__input-group">
@@ -16,7 +16,7 @@ const EditEvent = () => {
                 <label htmlFor="minute">minute: </label>
                 <input type="tel" id="minute" name="minute"/>
             </div>
-            <button>OK</button>
+            <button onClick={() => props.onSave()}>OK</button>
             <button>Cancel</button>
         </div>
     );

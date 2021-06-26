@@ -37,7 +37,7 @@ class App extends Component { // Wywołanie komponentu stanu.
         return (
             <div className="app">
                 {events}
-                <EditEvent />
+                <EditEvent onSave={() => alert("A")} />
             </div>
         );
     }
