@@ -5,13 +5,14 @@ import "./Countdown.css";
 
 const Countdown = props => (
     <div className="countdown">
-        <strong>{props.name}</strong> - {props.time}
+        <strong>{props.name}</strong> - {props.hour} : {props.minute}
     </div>
 );
 
 Countdown.propTypes = {
     name: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired
+    hour: PropTypes.string.isRequired,
+    minute: PropTypes.string.isRequired
 };
 
 export default Countdown;
