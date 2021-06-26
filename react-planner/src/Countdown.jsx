@@ -10,8 +10,8 @@ const Countdown = props => (
 );
 
 Countdown.propTypes = {
-    name: PropTypes.string,
-    time: PropTypes.string
+    name: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired
 };
 
 export default Countdown;
