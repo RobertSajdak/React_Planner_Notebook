@@ -3,17 +3,20 @@
     {
       "id": 1,
       "name": "pobudka",
-      "time": "06:30"
+      "hour": "06",
+      "minute": "30"
     },
     {
       "id": 2,
       "name": "trening",
-      "time": "06:45"
+      "hour": "06",
+      "minute": "45"
     },
     {
       "id": 3,
       "name": "śniadanie",
-      "time": "07:30"
+      "hour": "07",
+      "minute": "30"
     }
   ]
 }

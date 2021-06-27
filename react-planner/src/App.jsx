@@ -4,30 +4,11 @@ import "./App.css";
 import Countdown from "./Countdown.jsx";
 import EditEvent from "./EditEvent.jsx";
 
-// JSON Server & Fetch.
-// W katalogu, gdzie jest plik db.json, wykonujemy następujące polecenie: json-server --watch db.json
-// Pobranie wszystkich danych z bazy i wyświetlenie ich w konsoli:
-// const API = "http://localhost:3000";
-//
-// fetch(`${API}/db`)
-//     .then(response => response.json())
-//     .then(data => {
-//         console.log(data);
-//     })
-//     .catch(error => {
-//         console.log(error);
-//     });
-
-
 class App extends Component { // Wywołanie komponentu stanu.
     constructor() {
         super();
         this.state = {
-            events: [
-                {id: 1, name: "pobudka", hour: "06", minute: "30"},
-                {id: 2, name: "trening", hour: "06", minute: "45"},
-                {id: 3, name: "śniadanie", hour: "07", minute: "00"}
-            ],
+            events: [],
             editedEvent: { // Pole do edycji wartości formularza.
                 id: 4,
                 name: "",
@@ -38,6 +19,19 @@ class App extends Component { // Wywołanie komponentu stanu.
 
         this.handleEditEvent = this.handleEditEvent.bind(this);
         this.handleSaveEvent = this.handleSaveEvent.bind(this);
+    }
+    // JSON Server & Fetch.
+    // W katalogu, gdzie jest plik db.json, wykonujemy następujące polecenie: json-server --watch db.json
+    // Pobranie wszystkich danych z bazy i wyświetlenie ich w konsoli:
+    // const API = "http://localhost:3005";
+        componentDidMount() {
+        fetch("http://localhost:3005/countdown")
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    events: data
+                })
+            })
     }
 
     handleEditEvent(val) { // Funkcja do edycji wydarzenia.
@@ -51,8 +45,14 @@ class App extends Component { // Wywołanie komponentu stanu.
 
     handleSaveEvent() { // Funkcja do dodawania (zapisywania) wydarzenia do listy.
         this.setState(prevState => ({
-            events: [...prevState.events, prevState.editedEvent]
-        }))
+            events: [...prevState.events, prevState.editedEvent],
+            editedEvent: { // Reset pola dodawania
+                id: 4,
+                name: "",
+                hour: "",
+                minute: ""
+            }
+        }));
     }
 
     render() { // Generowanie komponentu na podstawie stanu.
@@ -70,6 +70,9 @@ class App extends Component { // Wywołanie komponentu stanu.
             <div className="app">
                 {events}
                 <EditEvent
+                    name={this.state.editedEvent.name}
+                    hour={this.state.editedEvent.hour}
+                    minute={this.state.editedEvent.minute}
                     onInputChange={val => this.handleEditEvent(val)}
                     onSave={() => this.handleSaveEvent()}
                 />
