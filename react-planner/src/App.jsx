@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import uniqid from "uniqid";
 
 import "./App.css";
 import Countdown from "./Countdown.jsx";
@@ -10,7 +11,7 @@ class App extends Component { // Wywołanie komponentu stanu.
         this.state = {
             events: [],
             editedEvent: { // Pole do edycji wartości formularza.
-                id: 4,
+                id: uniqid(), // Dodanie unikatowego ID.
                 name: "",
                 hour: "",
                 minute: ""
@@ -47,7 +48,7 @@ class App extends Component { // Wywołanie komponentu stanu.
         this.setState(prevState => ({
             events: [...prevState.events, prevState.editedEvent],
             editedEvent: { // Reset pola dodawania
-                id: 4,
+                id: uniqid(), // Dodanie unikatowego ID.
                 name: "",
                 hour: "",
                 minute: ""
