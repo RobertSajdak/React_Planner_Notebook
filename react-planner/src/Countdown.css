@@ -5,3 +5,15 @@
     padding: 25px;
     border-radius: 20px;
 }
+
+.countdown__icons {
+    color: white;
+    cursor: pointer;
+    display: none;
+    float: right;
+    font-size: 1.5rem;
+}
+
+.countdown:hover .countdown__icons {
+    display: block;
+}

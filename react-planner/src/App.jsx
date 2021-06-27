@@ -20,6 +20,7 @@ class App extends Component { // Wywołanie komponentu stanu.
 
         this.handleEditEvent = this.handleEditEvent.bind(this);
         this.handleSaveEvent = this.handleSaveEvent.bind(this);
+        this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
     }
     // JSON Server & Fetch.
     // W katalogu, gdzie jest plik db.json, wykonujemy następujące polecenie: json-server --watch db.json
@@ -56,14 +57,22 @@ class App extends Component { // Wywołanie komponentu stanu.
         }));
     }
 
+    handleRemoveEvent(id) { // Funkcja do usuwania wydarzeń z listy.
+        this.setState(prevState => ({
+            events: prevState.events.filter(el => el.id !== id)
+        }))
+    }
+
     render() { // Generowanie komponentu na podstawie stanu.
         const events = this.state.events.map(el => {
             return (
                 <Countdown
                     key={el.id}
+                    id={el.id}
                     name={el.name}
                     hour={el.hour}
                     minute={el.minute}
+                    onRemove={id => this.handleRemoveEvent(id)}
                 />
             );
         });
