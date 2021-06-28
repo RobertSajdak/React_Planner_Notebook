@@ -9,7 +9,11 @@ class App extends Component { // Wywołanie komponentu stanu.
     constructor() {
         super();
         this.state = {
-            events: [],
+            events: [
+                {id: 0, name: "pobudka", hour:"06", minute:"30"},
+                {id: 1, name: "trening", hour:"06", minute:"45"},
+                {id: 2, name: "śniadanie", hour:"07", minute:"30"},
+            ],
             editedEvent: { // Pole do edycji wartości formularza.
                 id: uniqid(), // Dodanie unikatowego ID.
                 name: "",
@@ -21,6 +25,7 @@ class App extends Component { // Wywołanie komponentu stanu.
         this.handleEditEvent = this.handleEditEvent.bind(this);
         this.handleSaveEvent = this.handleSaveEvent.bind(this);
         this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
+        this.handleEditInit = this.handleEditInit.bind(this);
     }
     // JSON Server & Fetch.
     // W katalogu, gdzie jest plik db.json, wykonujemy następujące polecenie: json-server --watch db.json
@@ -46,21 +51,39 @@ class App extends Component { // Wywołanie komponentu stanu.
     }
 
     handleSaveEvent() { // Funkcja do dodawania (zapisywania) wydarzenia do listy.
-        this.setState(prevState => ({
-            events: [...prevState.events, prevState.editedEvent],
-            editedEvent: { // Reset pola dodawania
-                id: uniqid(), // Dodanie unikatowego ID.
-                name: "",
-                hour: "",
-                minute: ""
+        this.setState(prevState => {
+            const editedEventExists = prevState.events.find(
+                el => el.id === prevState.editedEvent.id
+            );
+            let updatedEvents;
+            if(editedEventExists) {
+                updatedEvents = prevState.events.map(el => {
+                    if(el.id === prevState.editedEvent.id) return prevState.editedEvent
+                    else return el;
+                });
             }
-        }));
+        });
+        // this.setState(prevState => ({
+        //     events: [...prevState.events, prevState.editedEvent],
+        //     editedEvent: { // Reset pola dodawania
+        //         id: uniqid(), // Dodanie unikatowego ID.
+        //         name: "",
+        //         hour: "",
+        //         minute: ""
+        //     }
+        // }));
     }
 
     handleRemoveEvent(id) { // Funkcja do usuwania wydarzeń z listy.
         this.setState(prevState => ({
             events: prevState.events.filter(el => el.id !== id)
         }))
+    }
+
+    handleEditInit(id) { // Funkcja do rozpoczęcia zmian edycji wydarzenia.
+        this.setState(prevState => ({
+            editedEvent: { ...prevState.events.find(el => el.id === id) }
+        }));
     }
 
     render() { // Generowanie komponentu na podstawie stanu.
@@ -73,6 +96,7 @@ class App extends Component { // Wywołanie komponentu stanu.
                     hour={el.hour}
                     minute={el.minute}
                     onRemove={id => this.handleRemoveEvent(id)}
+                    onEditInit={id => this.handleEditInit(id)}
                 />
             );
         });
