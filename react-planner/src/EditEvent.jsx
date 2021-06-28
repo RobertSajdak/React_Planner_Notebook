@@ -2,11 +2,17 @@ import React from "react";
 import "./EditEvent.css";
 import PropTypes from "prop-types";
 
-import {isValidNumberInput, parseInputAsNumber, isValidName} from "./utils";
+import {
+    isValidNumberInput,
+    parseInputAsNumber,
+    isValidName,
+    isValidHour,
+    isValidMinute
+} from "./utils";
 
 // Dodanie komponentów edycji wydarzenia:
 const EditEvent = props => {
-    console.log(isValidName(props.name));
+    console.log(isValidMinute(props.minute));
     return (
         <div className="edit-event">
             <div className="edit-event__input-group">
