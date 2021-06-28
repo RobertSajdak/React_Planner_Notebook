@@ -1,22 +1,22 @@
 {
   "countdown": [
     {
-      "id": 1,
+      "id": 0,
       "name": "pobudka",
-      "hour": "06",
-      "minute": "30"
+      "hour": 6,
+      "minute": 30
+    },
+    {
+      "id": 1,
+      "name": "trening",
+      "hour": 6,
+      "minute": 45
     },
     {
       "id": 2,
-      "name": "trening",
-      "hour": "06",
-      "minute": "45"
-    },
-    {
-      "id": 3,
       "name": "śniadanie",
-      "hour": "07",
-      "minute": "30"
+      "hour": 7,
+      "minute": 30
     }
   ]
 }

@@ -10,15 +10,15 @@ class App extends Component { // Wywołanie komponentu stanu.
         super();
         this.state = {
             events: [
-                {id: 0, name: "pobudka", hour:"06", minute:"30"},
-                {id: 1, name: "trening", hour:"06", minute:"45"},
-                {id: 2, name: "śniadanie", hour:"07", minute:"30"},
+                {id: 0, name: "pobudka", hour:6, minute:30},
+                {id: 1, name: "trening", hour:6, minute:45},
+                {id: 2, name: "śniadanie", hour:7, minute:30},
             ],
             editedEvent: { // Pole do edycji wartości formularza.
                 id: uniqid(), // Dodanie unikatowego ID.
                 name: "",
-                hour: "",
-                minute: ""
+                hour: -1,
+                minute: -1
             }
         };
 
@@ -66,7 +66,7 @@ class App extends Component { // Wywołanie komponentu stanu.
             }
             return{
                 events: updatedEvents,
-                editedEvent: {id: uniqid(), name:"", hour:"", minute: ""}
+                editedEvent: {id: uniqid(), name:"", hour: -1, minute: -1}
             };
         });
         // this.setState(prevState => ({

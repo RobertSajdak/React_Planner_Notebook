@@ -25,7 +25,7 @@ const EditEvent = props => {
                     type="tel"
                     id="hour"
                     name="hour"
-                    value={props.hour}
+                    value={props.hour === -1 ? "" : props.hour}
                     onKeyPress={e => isValidNumberInput(e)} // Blokowanie możłiwości wpisywania znaków do pola formularza.
                     onChange={(e) =>
                         props.onInputChange({[e.target.name]: e.target.value})
@@ -38,7 +38,7 @@ const EditEvent = props => {
                     type="tel"
                     id="minute"
                     name="minute"
-                    value={props.minute}
+                    value={props.minute === -1 ? "" : props.minute}
                     onChange={(e) =>
                         props.onInputChange({[e.target.name]: e.target.value})
                     }
