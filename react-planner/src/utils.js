@@ -9,3 +9,8 @@ export function parseInputAsNumber(val) {
     if (val === "") return -1;
     return parseInt(val, 10);
 }
+
+export function isValidName(val) {
+    if(val.length > 0) return true;
+    return false;
+}

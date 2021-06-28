@@ -2,10 +2,11 @@ import React from "react";
 import "./EditEvent.css";
 import PropTypes from "prop-types";
 
-import {isValidNumberInput, parseInputAsNumber} from "./utils";
+import {isValidNumberInput, parseInputAsNumber, isValidName} from "./utils";
 
 // Dodanie komponentów edycji wydarzenia:
 const EditEvent = props => {
+    console.log(isValidName(props.name));
     return (
         <div className="edit-event">
             <div className="edit-event__input-group">
@@ -49,7 +50,7 @@ const EditEvent = props => {
                     }
                 />
             </div>
-            <button onClick={() => props.onSave()}>OK</button>
+            <button disabled={false} onClick={() => props.onSave()}>OK</button>
             <button>Cancel</button>
         </div>
     );
