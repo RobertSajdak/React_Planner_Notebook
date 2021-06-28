@@ -1,4 +1,7 @@
 import React from "react";
+import "./EditEvent.css";
+
+import {isValidNumberInput} from "./utils";
 
 // Dodanie komponentów edycji wydarzenia:
 const EditEvent = props => {
@@ -23,6 +26,7 @@ const EditEvent = props => {
                     id="hour"
                     name="hour"
                     value={props.hour}
+                    onKeyPress={e => isValidNumberInput(e)} // Blokowanie możłiwości wpisywania znaków do pola formularza.
                     onChange={(e) =>
                         props.onInputChange({[e.target.name]: e.target.value})
                     }
