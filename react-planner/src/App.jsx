@@ -61,7 +61,13 @@ class App extends Component { // Wywołanie komponentu stanu.
                     if(el.id === prevState.editedEvent.id) return prevState.editedEvent
                     else return el;
                 });
+            } else {
+                updatedEvents = [...prevState.events, prevState.editedEvent];
             }
+            return{
+                events: updatedEvents,
+                editedEvent: {id: uniqid(), name:"", hour:"", minute: ""}
+            };
         });
         // this.setState(prevState => ({
         //     events: [...prevState.events, prevState.editedEvent],
