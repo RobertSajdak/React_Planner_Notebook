@@ -26,6 +26,7 @@ class App extends Component { // Wywołanie komponentu stanu.
         this.handleSaveEvent = this.handleSaveEvent.bind(this);
         this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
         this.handleEditInit = this.handleEditInit.bind(this);
+        this.handleEditCancel = this.handleEditCancel.bind(this);
     }
     // JSON Server & Fetch.
     // W katalogu, gdzie jest plik db.json, wykonujemy następujące polecenie: json-server --watch db.json
@@ -92,6 +93,12 @@ class App extends Component { // Wywołanie komponentu stanu.
         }));
     }
 
+    handleEditCancel() { // Funkcja do resetu zawartości pól formularza.
+        this.setState({
+            editedEvent: {id: uniqid(), name:"", hour: -1, minute: -1}
+        });
+    }
+
     render() { // Generowanie komponentu na podstawie stanu.
         const events = this.state.events.map(el => {
             return (
@@ -115,6 +122,7 @@ class App extends Component { // Wywołanie komponentu stanu.
                     minute={this.state.editedEvent.minute}
                     onInputChange={val => this.handleEditEvent(val)}
                     onSave={() => this.handleSaveEvent()}
+                    onCancel={() => this.handleEditCancel()}
                 />
             </div>
         );
