@@ -12,7 +12,11 @@ import {
 
 // Dodanie komponentów edycji wydarzenia:
 const EditEvent = props => {
-    console.log(isValidMinute(props.minute));
+    const isFormValid =
+        isValidName(props.name) &&
+        isValidHour(props.hour) &&
+        isValidMinute(props.minute)
+    ;
     return (
         <div className="edit-event">
             <div className="edit-event__input-group">
@@ -56,7 +60,13 @@ const EditEvent = props => {
                     }
                 />
             </div>
-            <button disabled={false} onClick={() => props.onSave()}>OK</button>
+            {/*
+               Jeśli form jest OK, isFormValid true,
+               Jeśli form nie jest OK, isFormValid false
+               Przycisk OK odblokowany - false,
+               Przycisk OK zablokowany - true.
+            */}
+            <button disabled={!isFormValid} onClick={() => props.onSave()}>OK</button>
             <button>Cancel</button>
         </div>
     );
