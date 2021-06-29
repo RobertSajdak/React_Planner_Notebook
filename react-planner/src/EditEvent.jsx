@@ -57,6 +57,7 @@ const EditEvent = props => {
                     id="minute"
                     name="minute"
                     value={props.minute === -1 ? "" : props.minute}
+                    onKeyPress={e => isValidNumberInput(e)}
                     onChange={(e) =>
                         props.onInputChange({
                             [e.target.name]: parseInputAsNumber(e.target.value)
