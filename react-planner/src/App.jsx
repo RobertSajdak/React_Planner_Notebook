@@ -9,10 +9,16 @@ class App extends Component { // Wywołanie komponentu stanu.
     constructor() {
         super();
         this.state = {
+            now: { // Pobranie aktualnego czasu.
+                hour: new Date().getHours(),
+                minute: new Date().getMinutes(),
+                seconds: new Date().getSeconds()
+            },
             events: [
                 {id: 0, name: "pobudka", hour:6, minute:30},
                 {id: 1, name: "trening", hour:6, minute:45},
                 {id: 2, name: "śniadanie", hour:7, minute:30},
+                {id: 3, name: "bieganie", hour:21, minute:20},
             ],
             editedEvent: { // Pole do edycji wartości formularza.
                 id: uniqid(), // Dodanie unikatowego ID.
@@ -108,6 +114,7 @@ class App extends Component { // Wywołanie komponentu stanu.
                     name={el.name}
                     hour={el.hour}
                     minute={el.minute}
+                    timeNow={this.state.now}
                     onRemove={id => this.handleRemoveEvent(id)}
                     onEditInit={id => this.handleEditInit(id)}
                 />
