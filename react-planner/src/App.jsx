@@ -14,12 +14,7 @@ class App extends Component { // Wywołanie komponentu stanu.
                 minute: new Date().getMinutes(),
                 seconds: new Date().getSeconds()
             },
-            events: [
-                {id: 0, name: "pobudka", hour: 6, minute: 30},
-                {id: 1, name: "trening", hour: 6, minute: 45},
-                {id: 2, name: "śniadanie", hour: 7, minute: 30},
-                {id: 3, name: "bieganie", hour: 21, minute: 20},
-            ],
+            events: [],
             editedEvent: { // Pole do edycji wartości formularza.
                 id: uniqid(), // Dodanie unikatowego ID.
                 name: "",
@@ -47,6 +42,11 @@ class App extends Component { // Wywołanie komponentu stanu.
     }
 
     componentDidMount() {
+        // Przypisz do stałej storageEvents wartość z localStorage.getItem("events").
+        // Jeśli jej nie znajdziesz, użyj pustej tablicy.
+        const storageEvents = JSON.parse(localStorage.getItem("events")) || [];
+        this.setState({ events: storageEvents });
+
         const intervalId = setInterval(this.timer, 1000);
         this.setState({intervalId: intervalId});
     }
