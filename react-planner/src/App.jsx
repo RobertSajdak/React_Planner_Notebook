@@ -15,10 +15,10 @@ class App extends Component { // Wywołanie komponentu stanu.
                 seconds: new Date().getSeconds()
             },
             events: [
-                {id: 0, name: "pobudka", hour:6, minute:30},
-                {id: 1, name: "trening", hour:6, minute:45},
-                {id: 2, name: "śniadanie", hour:7, minute:30},
-                {id: 3, name: "bieganie", hour:21, minute:20},
+                {id: 0, name: "pobudka", hour: 6, minute: 30},
+                {id: 1, name: "trening", hour: 6, minute: 45},
+                {id: 2, name: "śniadanie", hour: 7, minute: 30},
+                {id: 3, name: "bieganie", hour: 21, minute: 20},
             ],
             editedEvent: { // Pole do edycji wartości formularza.
                 id: uniqid(), // Dodanie unikatowego ID.
@@ -47,8 +47,8 @@ class App extends Component { // Wywołanie komponentu stanu.
     }
 
     componentDidMount() {
-        const intervalId = setInterval(this.timer,1000);
-        this.setState({ intervalId: intervalId });
+        const intervalId = setInterval(this.timer, 1000);
+        this.setState({intervalId: intervalId});
     }
 
     componentDidUnmount() {
@@ -80,23 +80,25 @@ class App extends Component { // Wywołanie komponentu stanu.
 
     handleSaveEvent() { // Funkcja do dodawania (zapisywania) wydarzenia do listy.
         this.setState(prevState => {
-            const editedEventExists = prevState.events.find(
-                el => el.id === prevState.editedEvent.id
-            );
-            let updatedEvents;
-            if(editedEventExists) {
-                updatedEvents = prevState.events.map(el => {
-                    if(el.id === prevState.editedEvent.id) return prevState.editedEvent
-                    else return el;
-                });
-            } else {
-                updatedEvents = [...prevState.events, prevState.editedEvent];
-            }
-            return{
-                events: updatedEvents,
-                editedEvent: {id: uniqid(), name:"", hour: -1, minute: -1}
-            };
-        });
+                const editedEventExists = prevState.events.find(
+                    el => el.id === prevState.editedEvent.id
+                );
+                let updatedEvents;
+                if (editedEventExists) {
+                    updatedEvents = prevState.events.map(el => {
+                        if (el.id === prevState.editedEvent.id) return prevState.editedEvent
+                        else return el;
+                    });
+                } else {
+                    updatedEvents = [...prevState.events, prevState.editedEvent];
+                }
+                return {
+                    events: updatedEvents,
+                    editedEvent: {id: uniqid(), name: "", hour: -1, minute: -1}
+                };
+            }, () => localStorage.setItem("events", JSON.stringify(this.state.events))
+        );
+
         // this.setState(prevState => ({
         //     events: [...prevState.events, prevState.editedEvent],
         //     editedEvent: { // Reset pola dodawania
@@ -109,20 +111,23 @@ class App extends Component { // Wywołanie komponentu stanu.
     }
 
     handleRemoveEvent(id) { // Funkcja do usuwania wydarzeń z listy.
-        this.setState(prevState => ({
-            events: prevState.events.filter(el => el.id !== id)
-        }))
+        this.setState(
+            prevState => ({
+                events: prevState.events.filter(el => el.id !== id)
+            }),
+            () => localStorage.setItem("events", JSON.stringify(this.state.events))
+        );
     }
 
     handleEditInit(id) { // Funkcja do rozpoczęcia zmian edycji wydarzenia.
         this.setState(prevState => ({
-            editedEvent: { ...prevState.events.find(el => el.id === id) }
+            editedEvent: {...prevState.events.find(el => el.id === id)}
         }));
     }
 
     handleEditCancel() { // Funkcja do resetu zawartości pól formularza.
         this.setState({
-            editedEvent: {id: uniqid(), name:"", hour: -1, minute: -1}
+            editedEvent: {id: uniqid(), name: "", hour: -1, minute: -1}
         });
     }
 
