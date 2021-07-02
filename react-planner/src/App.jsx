@@ -28,25 +28,46 @@ class App extends Component { // Wywołanie komponentu stanu.
             }
         };
 
+        this.timer = this.timer.bind(this);
         this.handleEditEvent = this.handleEditEvent.bind(this);
         this.handleSaveEvent = this.handleSaveEvent.bind(this);
         this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
         this.handleEditInit = this.handleEditInit.bind(this);
         this.handleEditCancel = this.handleEditCancel.bind(this);
     }
+
+    timer() { // Funkcja, która robi update aktualnego stanu.
+        this.setState({
+            now: {
+                hour: new Date().getHours(),
+                minute: new Date().getMinutes(),
+                seconds: new Date().getSeconds()
+            }
+        });
+    }
+
+    componentDidMount() {
+        const intervalId = setInterval(this.timer,1000);
+        this.setState({ intervalId: intervalId });
+    }
+
+    componentDidUnmount() {
+        clearInterval(this.state.intervalId);
+    }
+
     // JSON Server & Fetch.
     // W katalogu, gdzie jest plik db.json, wykonujemy następujące polecenie: json-server --watch db.json
     // Pobranie wszystkich danych z bazy i wyświetlenie ich w konsoli:
     // const API = "http://localhost:3005";
-        componentDidMount() {
-        fetch("http://localhost:3005/countdown")
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                    events: data
-                })
-            })
-    }
+    //     componentDidMount() {
+    //     fetch("http://localhost:3005/countdown")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             this.setState({
+    //                 events: data
+    //             })
+    //         })
+    // }
 
     handleEditEvent(val) { // Funkcja do edycji wydarzenia.
         // this.setState({editedEvents: val});

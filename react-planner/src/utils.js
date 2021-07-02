@@ -41,5 +41,5 @@ export function secondsToHourMinuteSecond(s) {
     seconds -= minute * 60;
     seconds = seconds.toString().padStart(2, 0);
 
-    return `${hour}h:${minute}m:${seconds}s`;
+    return `${hour}:${minute}:${seconds}`;
 }
