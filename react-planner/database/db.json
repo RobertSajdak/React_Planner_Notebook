@@ -17,6 +17,72 @@
       "name": "śniadanie",
       "hour": 7,
       "minute": 30
+    },
+    {
+      "name": "fdgdfg",
+      "hour": "1",
+      "minute": "1",
+      "id": 3
+    },
+    {
+      "name": "hgfhgfh",
+      "hour": "1",
+      "minute": "2",
+      "id": 4
+    },
+    {
+      "name": "test",
+      "hour": "23",
+      "minute": "2",
+      "id": 5
+    },
+    {
+      "name": "test2",
+      "hour": "1",
+      "minute": "45",
+      "id": 6
+    },
+    {
+      "name": "trening",
+      "hour": "7",
+      "minute": "0",
+      "id": 7
+    },
+    {
+      "name": "biuro",
+      "hour": "8",
+      "minute": "0",
+      "id": 8
+    },
+    {
+      "name": "lunch",
+      "hour": "13",
+      "minute": "30",
+      "id": 9
+    },
+    {
+      "name": "siłownia",
+      "hour": "18",
+      "minute": "30",
+      "id": 10
+    },
+    {
+      "name": "Netflix",
+      "hour": "21",
+      "minute": "0",
+      "id": 11
+    },
+    {
+      "name": "sen",
+      "hour": "23",
+      "minute": "45",
+      "id": 12
+    },
+    {
+      "name": "sen",
+      "hour": "23",
+      "minute": "45",
+      "id": 13
     }
   ]
 }

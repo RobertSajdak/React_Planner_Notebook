@@ -42,17 +42,20 @@ class App extends Component { // Wywołanie komponentu stanu.
     }
 
     componentDidMount() {
-        // Przypisz do stałej storageEvents wartość z localStorage.getItem("events").
-        // Jeśli jej nie znajdziesz, użyj pustej tablicy.
-        const storageEvents = JSON.parse(localStorage.getItem("events")) || [];
-        this.setState({ events: storageEvents });
+            fetch("http://localhost:3005/countdown")
+                .then(res => res.json())
+                .then(data => {
+                    this.setState({
+                        events: data
+                    })
+                })
 
-        const intervalId = setInterval(this.timer, 1000);
-        this.setState({intervalId: intervalId});
+        this.intervalId = setInterval(this.timer, 1000);
+
     }
 
     componentDidUnmount() {
-        clearInterval(this.state.intervalId);
+        clearInterval(this.intervalId);
     }
 
     // JSON Server & Fetch.
@@ -71,6 +74,7 @@ class App extends Component { // Wywołanie komponentu stanu.
 
     handleEditEvent(val) { // Funkcja do edycji wydarzenia.
         // this.setState({editedEvents: val});
+        console.log(val)
         this.setState(prevState => {
             return {
                 editedEvent: Object.assign(prevState.editedEvent, val)
@@ -78,26 +82,26 @@ class App extends Component { // Wywołanie komponentu stanu.
         });
     }
 
-    handleSaveEvent() { // Funkcja do dodawania (zapisywania) wydarzenia do listy.
-        this.setState(prevState => {
-                const editedEventExists = prevState.events.find(
-                    el => el.id === prevState.editedEvent.id
-                );
-                let updatedEvents;
-                if (editedEventExists) {
-                    updatedEvents = prevState.events.map(el => {
-                        if (el.id === prevState.editedEvent.id) return prevState.editedEvent
-                        else return el;
-                    });
-                } else {
-                    updatedEvents = [...prevState.events, prevState.editedEvent];
-                }
-                return {
-                    events: updatedEvents,
-                    editedEvent: {id: uniqid(), name: "", hour: -1, minute: -1}
-                };
-            }, () => localStorage.setItem("events", JSON.stringify(this.state.events))
-        );
+    handleSaveEvent = (form) =>  { // Funkcja do dodawania (zapisywania) wydarzenia do listy.
+        // this.setState(prevState => {
+        //         const editedEventExists = prevState.events.find(
+        //             el => el.id === prevState.editedEvent.id
+        //         );
+        //         let updatedEvents;
+        //         if (editedEventExists) {
+        //             updatedEvents = prevState.events.map(el => {
+        //                 if (el.id === prevState.editedEvent.id) return prevState.editedEvent
+        //                 else return el;
+        //             });
+        //         } else {
+        //             updatedEvents = [...prevState.events, prevState.editedEvent];
+        //         }
+        //         return {
+        //             events: updatedEvents,
+        //             editedEvent: {id: uniqid(), name: "", hour: -1, minute: -1}
+        //         };
+        //     }, () => localStorage.setItem("events", JSON.stringify(this.state.events))
+        // );
 
         // this.setState(prevState => ({
         //     events: [...prevState.events, prevState.editedEvent],
@@ -108,6 +112,18 @@ class App extends Component { // Wywołanie komponentu stanu.
         //         minute: ""
         //     }
         // }));
+        fetch(`http://localhost:3005/countdown`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(form)
+        })
+            .then(res => res.json())
+            .then(data => this.setState(prev => ({
+                events: [...prev.events, data]
+            })))
+            .catch(err => console.warn(err))
     }
 
     handleRemoveEvent(id) { // Funkcja do usuwania wydarzeń z listy.
@@ -150,12 +166,7 @@ class App extends Component { // Wywołanie komponentu stanu.
             <div className="app">
                 {events}
                 <EditEvent
-                    name={this.state.editedEvent.name}
-                    hour={this.state.editedEvent.hour}
-                    minute={this.state.editedEvent.minute}
-                    onInputChange={val => this.handleEditEvent(val)}
-                    onSave={() => this.handleSaveEvent()}
-                    onCancel={() => this.handleEditCancel()}
+                    onSave={this.handleSaveEvent}
                 />
             </div>
         );
